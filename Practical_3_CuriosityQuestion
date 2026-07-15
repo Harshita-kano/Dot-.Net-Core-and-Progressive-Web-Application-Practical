@@ -1,0 +1,151 @@
+Aim 1 : A college wants to calculate student performance.
+a. Create methods to
+b. Calculate Total Marks
+c. Calculate Percentage
+d. Display Grade
+e. Display Pass/Fail
+Note: Call each method using a delegate.
+
+
+CODE : 
+using System;
+
+delegate void StudentDelegate();
+
+class Student
+{
+    int m1, m2, m3, m4, m5;
+    int total;
+    double percentage;
+
+    public Student(int a, int b, int c, int d, int e)
+    {
+        m1 = a;
+        m2 = b;
+        m3 = c;
+        m4 = d;
+        m5 = e;
+    }
+
+    public void TotalMarks()
+    {
+        total = m1 + m2 + m3 + m4 + m5;
+        Console.WriteLine("Total Marks : " + total);
+    }
+
+    public void Percentage()
+    {
+        percentage = total / 5.0;
+        Console.WriteLine("Percentage : " + percentage);
+    }
+
+    public void Grade()
+    {
+        if (percentage >= 75)
+            Console.WriteLine("Grade : A");
+        else if (percentage >= 60)
+            Console.WriteLine("Grade : B");
+        else if (percentage >= 50)
+            Console.WriteLine("Grade : C");
+        else
+            Console.WriteLine("Grade : Fail");
+    }
+
+    public void Result()
+    {
+        if (percentage >= 50)
+            Console.WriteLine("Result : PASS");
+        else
+            Console.WriteLine("Result : FAIL");
+    }
+
+    static void Main(string[] args)
+    {
+        Console.Write("Enter Marks of Subject 1 : ");
+        int s1 = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Enter Marks of Subject 2 : ");
+        int s2 = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Enter Marks of Subject 3 : ");
+        int s3 = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Enter Marks of Subject 4 : ");
+        int s4 = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Enter Marks of Subject 5 : ");
+        int s5 = Convert.ToInt32(Console.ReadLine());
+
+        Student obj = new Student(s1, s2, s3, s4, s5);
+
+        StudentDelegate d;
+        d = obj.TotalMarks;
+        d();
+
+        d = obj.Percentage;
+        d();
+
+        d = obj.Grade;
+        d();
+
+        d = obj.Result;
+        d();
+    }
+}
+
+
+
+
+
+Aim 2 : A college wants to automate the admission process. When the user clicks Confirm Admission, several operations must happen automatically. Design a delegate-based solution.
+Students decide:
+a. Verify Documents
+b. Generate Roll Number
+c. Allocate Division
+d. Send SMS
+Note: For the above operation just print a statement.
+
+CODE : 
+using System;
+
+delegate void Admission();
+
+class College
+{
+    public void VerifyDocuments()
+    {
+        Console.WriteLine("Documents Verified Successfully.");
+    }
+
+    public void GenerateRollNo()
+    {
+        Console.WriteLine("Roll Number Generated.");
+    }
+
+    public void AllocateDivision()
+    {
+        Console.WriteLine("Division Allocated.");
+    }
+
+    public void SendSMS()
+    {
+        Console.WriteLine("SMS Sent Successfully.");
+    }
+
+    static void Main(string[] args)
+    {
+        College obj = new College();
+
+        Admission ad;
+
+        ad = obj.VerifyDocuments;
+        ad += obj.GenerateRollNo;
+        ad += obj.AllocateDivision;
+        ad += obj.SendSMS;
+
+        Console.WriteLine("Confirm Admission");
+        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        ad();
+    }
+}
