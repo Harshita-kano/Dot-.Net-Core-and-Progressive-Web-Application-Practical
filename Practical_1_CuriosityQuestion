@@ -1,0 +1,79 @@
+namespace MVCResult.Models
+{
+    public class ResultModel
+    {
+        public int Sub1 { get; set; }
+        public int Sub2 { get; set; }
+        public int Sub3 { get; set; }
+        public int Sub4 { get; set; }
+        public int Sub5 { get; set; }
+
+        public int Total { get; set; }
+        public double Percentage { get; set; }
+        public string Grade { get; set; }
+    }
+}
+using Microsoft.AspNetCore.Mvc;
+using MVCResult.Models;
+
+namespace MVCResult.Controllers
+{
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+            return View(new ResultModel());
+        }
+
+        [HttpPost]
+        public ActionResult Index(ResultModel m)
+        {
+            m.Total = m.Sub1 + m.Sub2 + m.Sub3 + m.Sub4 + m.Sub5;
+            m.Percentage = m.Total / 5.0;
+
+            if (m.Percentage >= 75)
+                m.Grade = "A";
+            else if (m.Percentage >= 60)
+                m.Grade = "B";
+            else if (m.Percentage >= 50)
+                m.Grade = "C";
+            else
+                m.Grade = "Fail";
+
+            return View(m);
+        }
+    }
+}
+@model MVCResult.Models.ResultModel
+
+<h2>Student Result Calculator</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.TextBoxFor(x => x.Sub1)
+    <br /><br />
+
+    @Html.TextBoxFor(x => x.Sub2)
+    <br /><br />
+
+    @Html.TextBoxFor(x => x.Sub3)
+    <br /><br />
+
+    @Html.TextBoxFor(x => x.Sub4)
+    <br /><br />
+
+    @Html.TextBoxFor(x => x.Sub5)
+    <br /><br />
+
+    <input type="submit" value="Calculate Result" />
+
+    <br /><br />
+
+    <b>Total Marks = @Model.Total</b>
+    <br />
+
+    <b>Percentage = @Model.Percentage</b>
+    <br />
+
+    <b>Grade = @Model.Grade</b>
+}
