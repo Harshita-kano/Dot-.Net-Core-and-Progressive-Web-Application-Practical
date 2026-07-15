@@ -1,0 +1,80 @@
+using System;
+
+class UniversityExam
+{
+    static void Main(string[] args)
+    {
+        try
+        {
+            Console.Write("Enter Student Name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter Registration Number: ");
+            string reg = Console.ReadLine();
+
+            if (reg == "")
+            {
+                throw new Exception("Invalid Registration Number");
+            }
+
+            Console.Write("Enter Number of Subjects: ");
+            int sub = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("\n1. Regular");
+            Console.WriteLine("2. ATKT");
+            Console.WriteLine("3. Repeater");
+            Console.Write("Enter Student Type: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            int fee = 0;
+
+            switch (choice)
+            {
+                case 1:
+                    fee = sub * 500;
+                    Console.WriteLine("\nCategory : Regular");
+                    break;
+
+                case 2:
+                    fee = sub * 700;
+                    Console.WriteLine("\nCategory : ATKT");
+                    break;
+
+                case 3:
+                    fee = sub * 1000;
+                    Console.WriteLine("\nCategory : Repeater");
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid Choice");
+                    return;
+            }
+
+            Console.WriteLine("Exam Fee : " + fee);
+
+            Console.WriteLine("\n----- Hall Ticket -----");
+            Console.WriteLine("Student Name : " + name);
+            Console.WriteLine("Registration No : " + reg);
+
+            Console.WriteLine("\n----- Result Declaration -----");
+            Console.Write("Enter Marks: ");
+            int marks = Convert.ToInt32(Console.ReadLine());
+
+            if (marks >= 40)
+            {
+                Console.WriteLine("Result : PASS");
+            }
+            else
+            {
+                Console.WriteLine("Result : FAIL");
+            }
+
+            Console.WriteLine("\nNotification : Result Declared Successfully");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+}
+
